@@ -40,7 +40,7 @@
       </div>
       <div class="result">
         <div
-          @click="onKick(item, index)"
+          @click="onKick(item)"
           class="lucky-dog"
           v-for="(item, index) in results"
           :key="index"
@@ -231,6 +231,7 @@
           onKick: function(player) {
             var vm = this;
             var index = vm.result[vm.currentAward].indexOf(player);
+            var index2 = vm.results.indexOf(player);
             this.$confirm('去掉后可继续抽一名', '去掉这名中奖者吗？', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
@@ -239,7 +240,13 @@
               if (vm.batchPlayers.indexOf(player) > -1) {
                 vm.batchPlayers.splice(vm.batchPlayers.indexOf(player), 1);
               }
-              vm.result[vm.currentAward].splice(index, 1);
+              // vm.result[vm.currentAward].splice(index2, 1);
+              vm.results.splice(index2, 1);
+              vm.result.map((item, ind) => {
+                if (ind === index2) {
+                  item.length = 0
+                }
+              })
               localStorage.setItem('result', JSON.stringify(vm.result));
             });
           },
