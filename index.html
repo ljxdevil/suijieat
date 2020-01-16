@@ -143,10 +143,16 @@
             return [0.1 * Math.random() + 0.01, -(0.1 * Math.random() + 0.01)];
           },
           start: function() {
+            document.getElementById('myCanvasContainer').style.cursor = 'not-allowed'
+            document.getElementById('myCanvasContainer').style.pointerEvents = 'none'
             this.running = true;
+            // cursor: not-allowed;
+            // pointer-events: none;
             TagCanvas.SetSpeed('myCanvas', [20, 5]);
           },
           stop: function() {
+            document.getElementById('myCanvasContainer').style.cursor = 'default'
+            document.getElementById('myCanvasContainer').style.pointerEvents = 'auto'
             this.running = false;
             TagCanvas.SetSpeed('myCanvas', this.getSpeed());
             var total = this.awards[this.currentAward].count;
@@ -216,6 +222,7 @@
               vm.players = vm.players.concat(p[0]);
               localStorage.setItem('players', JSON.stringify(vm.players))
               localStorage.setItem('result', JSON.stringify(vm.result));
+              this.getresults()
             });
           },
           onKeyup: function(e) {
